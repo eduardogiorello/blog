@@ -1,7 +1,7 @@
 <?php 
 
-if(isset($_GET['pagina']) && is_numeric($_GET['pagina'])){
-	$paginaActual = $_GET['pagina'];
+if(isset($rutas[0]) && is_numeric($rutas[0])){
+	$paginaActual = $rutas[0];
 } else{
 	$paginaActual = 1;
 }
@@ -31,19 +31,19 @@ CONTENIDO INICIO
 					
 					<div class="col-12 col-lg-5">
 
-						<a href="<?= $value['ruta_articulo']; ?>"><h5 class="d-block d-lg-none py-3"><?= $value['titulo_articulo']; ?></h5></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>"><h5 class="d-block d-lg-none py-3"><?= $value['titulo_articulo']; ?></h5></a>
 			
-						<a href="articulos.html"><img src="<?= $value['portada_articulo']; ?>" alt="<?= $value['titulo_articulo']; ?>" class="img-fluid" width="100%"></a>
+						<a href="articulos.html"><img src="<?= $blog['dominio'].$value['portada_articulo']; ?>" alt="<?= $value['titulo_articulo']; ?>" class="img-fluid" width="100%"></a>
 
 					</div>
 
 					<div class="col-12 col-lg-7 introArticulo">
 						
-						<a href="<?= $value['ruta_articulo']; ?>"><h4 class="d-none d-lg-block"><?= $value['titulo_articulo']; ?></h4></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>"><h4 class="d-none d-lg-block"><?= $value['titulo_articulo']; ?></h4></a>
 						
 						<p class="my-2 my-lg-5"><?= $value['descripcion_articulo']; ?></p>
 
-						<a href="<?= $value['ruta_articulo']; ?>" class="float-right">Leer Más</a>
+						<a href="<?= $blog['dominio']. $value['ruta_articulo']; ?>" class="float-right">Leer Más</a>
 
 						<div class="fecha"><?= $value['fecha_articulo']; ?></div>
 
@@ -85,7 +85,7 @@ CONTENIDO INICIO
 							
 							<a href="articulos.html">
 
-								<img src="vistas/img/articulo10.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
+								<img src="<?php echo $blog["dominio"]; ?>vistas/img/articulos/articulo-10/articulo10.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
 
 							</a>
 
@@ -109,7 +109,7 @@ CONTENIDO INICIO
 							
 							<a href="articulos.html">
 
-								<img src="vistas/img/articulo09.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
+								<img src="<?php echo $blog["dominio"]; ?>vistas/img/articulos/articulo-09/articulo09.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
 
 							</a>
 
@@ -133,7 +133,7 @@ CONTENIDO INICIO
 							
 							<a href="articulos.html">
 
-								<img src="vistas/img/articulo08.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
+								<img src="<?php echo $blog["dominio"]; ?>vistas/img/articulos/articulo-08/articulo08.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
 
 							</a>
 
@@ -158,19 +158,19 @@ CONTENIDO INICIO
 
 				<div class="my-4">
 					
-					<img src="vistas/img/ad01.jpg" class="img-fluid">
+					<img src="<?php echo $blog["dominio"]; ?>vistas/img/ad01.jpg" class="img-fluid">
 
 				</div>
 
 				<div class="my-4">
 					
-					<img src="vistas/img/ad02.jpg" class="img-fluid">
+					<img src="<?php echo $blog["dominio"]; ?>vistas/img/ad02.jpg" class="img-fluid">
 
 				</div>	
 
 				<div class="my-4">
 					
-					<img src="vistas/img/ad05.png" class="img-fluid">
+					<img src="<?php echo $blog["dominio"]; ?>vistas/img/ad05.png" class="img-fluid">
 
 				</div>	
 				

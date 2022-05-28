@@ -1,6 +1,72 @@
-<!--=====================================
-CONTENIDO CATEGORIA
-======================================-->
+
+<?php 
+
+/*=============================================
+Seleccionar los artículos de la categoría especifica
+=============================================*/
+
+if(isset($rutas[0]) && ){
+
+	$articulos = ControladorBlog::ctrMostrarConInnerJoin(0, 5, "ruta_categoria", $rutas[0]);
+
+	$totalArticulos = ControladorBlog::ctrMostrarTotalArticulos("id_cat", $articulos[0]["id_cat"]);
+
+	$totalPaginas = ceil(count($totalArticulos)/5);
+
+	$articulosDestacados = ControladorBlog::ctrArticulosDestacados("id_cat", $articulos[0]["id_cat"]);
+
+}
+/*=============================================
+Revisar si viene paginación de categorías
+=============================================*/
+
+if(isset($rutas[1])){
+
+	if(is_numeric($rutas[1])){
+
+		if($rutas[1] > $totalPaginas){
+
+			echo '<script>
+
+				window.location = "'.$blog["dominio"].'error404";
+
+			</script>';
+
+			return;
+
+		}
+
+		$paginaActual = $rutas[1];
+
+		$desde = ($rutas[1] - 1)*5;
+		$cantidad = 5;
+
+		$articulos = ControladorBlog::ctrMostrarConInnerJoin($desde, $cantidad, "ruta_categoria", $rutas[0]);
+
+	}else{
+
+		echo '<script>
+
+			window.location = "'.$blog["dominio"].'error404";
+
+		</script>';
+
+		return;
+	}
+
+
+}else{
+
+	$paginaActual = 1;
+
+}
+
+$anuncios = ControladorBlog::ctrTraerAnuncios("categorias");
+
+
+ ?>
+
+
 
 <div class="container-fluid bg-white contenidoInicio py-2 py-md-4">
 	
@@ -8,11 +74,12 @@ CONTENIDO CATEGORIA
 
 		<!-- BREADCRUMB -->
 
+		
 		<ul class="breadcrumb bg-white p-0 mb-2 mb-md-4">
 
-			<li class="breadcrumb-item inicio"><a href="index.html">Inicio</a></li>
+			<li class="breadcrumb-item inicio"><a href="<?php echo $blog["dominio"]; ?>">Inicio</a></li>
 
-			<li class="breadcrumb-item active">Mi viaje por Suramérica</li>
+			<li class="breadcrumb-item active"><?php echo $articulos[0]["descripcion_categoria"];?></li>
 
 		</ul>
 		
@@ -20,29 +87,31 @@ CONTENIDO CATEGORIA
 			
 			<!-- COLUMNA IZQUIERDA -->
 
+
 			<div class="col-12 col-md-8 col-lg-9 p-0 pr-lg-5">
 				
-				<!-- ARTÍCULO 01 -->
+			<?php foreach ($articulos as $key => $value): ?>
+					<!-- ARTÍCULO 01 -->
 
 				<div class="row">
 					
 					<div class="col-12 col-lg-5">
 
-						<a href="articulos.html"><h5 class="d-block d-lg-none py-3">Type something here</h5></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>"><h5 class="d-block d-lg-none py-3"><?= $value['titulo_articulo']; ?></h5></a>
 			
-						<a href="articulos.html"><img src="vistas/img/articulo06.png" alt="Lorem ipsum dolor sit amet" class="img-fluid" width="100%"></a>
+						<a href="articulos.html"><img src="<?= $blog['dominio'].$value['portada_articulo']; ?>" alt="<?= $value['titulo_articulo']; ?>" class="img-fluid" width="100%"></a>
 
 					</div>
 
 					<div class="col-12 col-lg-7 introArticulo">
 						
-						<a href="articulos.html"><h4 class="d-none d-lg-block">Type something here</h4></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>"><h4 class="d-none d-lg-block"><?= $value['titulo_articulo']; ?></h4></a>
 						
-						<p class="my-2 my-lg-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, minus magni ipsam nisi accusantium ipsa! Incidunt neque ad, iure omnis saepe est.</p>
+						<p class="my-2 my-lg-5"><?= $value['descripcion_articulo']; ?></p>
 
-						<a href="articulos.html" class="float-right">Leer Más</a>
+						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>" class="float-right">Leer Más</a>
 
-						<div class="fecha">30.09.2018</div>
+						<div class="fecha"><?= $value['fecha_articulo']; ?></div>
 
 					</div>
 
@@ -50,178 +119,12 @@ CONTENIDO CATEGORIA
 				</div>
 
 				<hr class="mb-4 mb-lg-5" style="border: 1px solid #79FF39">
-
-				<!-- ARTÍCULO 02 -->
-
-				<div class="row">
-					
-					<div class="col-12 col-lg-5">
-
-						<a href="articulos.html">
-
-							<h5 class="d-block d-lg-none py-3">Type something here</h5>
-
-						</a>
-			
-						<a href="articulos.html">
-
-							<img src="vistas/img/articulo07.png" alt="Lorem ipsum dolor sit amet" class="img-fluid" width="100%">
-
-						</a>
-
-					</div>
-
-					<div class="col-12 col-lg-7 introArticulo">
-						
-						<a href="articulos.html">
-
-							<h4 class="d-none d-lg-block">Type something here</h4>
-
-						</a>
-						
-						<p class="my-2 my-lg-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, minus magni ipsam nisi accusantium ipsa! Incidunt neque ad, iure omnis saepe est.</p>
-
-						<a href="articulos.html" class="float-right">Leer Más</a>
-
-						<div class="fecha">30.09.2018</div>
-
-					</div>
-
-				</div>
-
-				<hr class="mb-4 mb-lg-5" style="border: 1px solid #79FF39">
-
-				<!-- PUBLICIDAD -->
-
-				<div class="d-block d-lg-none">
-					
-					<img src="vistas/img/ad02.jpg" class="img-fluid" width="100%">
-
-				</div>
-
-				<!-- ARTÍCULO 03 -->
-
-				<div class="row">
-					
-					<div class="col-12 col-lg-5">
-
-						<a href="articulos.html">
-
-							<h5 class="d-block d-lg-none py-3">Type something here</h5>
-
-						</a>
-			
-						<a href="articulos.html">
-
-							<img src="vistas/img/articulo08.png" alt="Lorem ipsum dolor sit amet" class="img-fluid" width="100%">
-
-						</a>
-
-					</div>
-
-					<div class="col-12 col-lg-7 introArticulo">
-						
-						<a href="articulos.html">
-
-							<h4 class="d-none d-lg-block">Type something here</h4>
-
-						</a>
-						
-						<p class="my-2 my-lg-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, minus magni ipsam nisi accusantium ipsa! Incidunt neque ad, iure omnis saepe est.</p>
-
-						<a href="articulos.html" class="float-right">Leer Más</a>
-
-						<div class="fecha">30.09.2018</div>
-
-					</div>
-
-				</div>
-
-				<hr class="mb-4 mb-lg-5" style="border: 1px solid #79FF39">
-
-				<!-- ARTÍCULO 04 -->
-
-				<div class="row">
-					
-					<div class="col-12 col-lg-5">
-
-						<a href="articulos.html">
-
-							<h5 class="d-block d-lg-none py-3">Type something here</h5>
-
-						</a>
-			
-						<a href="articulos.html">
-
-							<img src="vistas/img/articulo09.png" alt="Lorem ipsum dolor sit amet" class="img-fluid" width="100%">
-
-						</a>
-
-					</div>
-
-					<div class="col-12 col-lg-7 introArticulo">
-						
-						<a href="articulos.html">
-
-							<h4 class="d-none d-lg-block">Type something here</h4>
-
-						</a>
-						
-						<p class="my-2 my-lg-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, minus magni ipsam nisi accusantium ipsa! Incidunt neque ad, iure omnis saepe est.</p>
-
-						<a href="articulos.html" class="float-right">Leer Más</a>
-
-						<div class="fecha">30.09.2018</div>
-
-					</div>
-
-				</div>
-
-				<hr class="mb-4 mb-lg-5" style="border: 1px solid #79FF39">
-
-				<!-- ARTÍCULO 05 -->
-
-				<div class="row">
-					
-					<div class="col-12 col-lg-5">
-
-						<a href="articulos.html">
-
-							<h5 class="d-block d-lg-none py-3">Type something here</h5>
-
-						</a>
-			
-						<a href="articulos.html">
-
-							<img src="vistas/img/articulo10.png" alt="Lorem ipsum dolor sit amet" class="img-fluid" width="100%">
-
-						</a>
-
-					</div>
-
-					<div class="col-12 col-lg-7 introArticulo">
-						
-						<a href="articulos.html">
-
-							<h4 class="d-none d-lg-block">Type something here</h4>
-
-						</a>
-						
-						<p class="my-2 my-lg-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, minus magni ipsam nisi accusantium ipsa! Incidunt neque ad, iure omnis saepe est.</p>
-
-						<a href="articulos.html" class="float-right">Leer Más</a>
-
-						<div class="fecha">30.09.2018</div>
-
-					</div>
-
-				</div>
-
-				<hr class="mb-4 mb-lg-5" style="border: 1px solid #79FF39">
+				
+			<?php endforeach ?>
 
 				<div class="container d-none d-md-block">
 					
-					<ul class="pagination justify-content-center"></ul>
+					<ul class="pagination justify-content-center" totalPaginas="<?php echo $totalPaginas; ?>" paginaActual="<?php echo $paginaActual; ?>" rutaPagina="<?php echo $articulos[0]["ruta_categoria"]; ?>"></ul>
 
 				</div>
 
@@ -236,29 +139,17 @@ CONTENIDO CATEGORIA
 				<div>
 
 					<h4>Etiquetas</h4>
+<?php 
 
+						$tags = json_decode($articulos[0]["p_claves_categorias"], true);
 
-						<a href="#suramerica" class="btn btn-secondary btn-sm m-1">suramerica</a> 				
-					
-						<a href="#colombia" class="btn btn-secondary btn-sm m-1">colombia</a> 					
-					
-						<a href="#peru" class="btn btn-secondary btn-sm m-1">peru</a> 					
-					
-						<a href="#argentina" class="btn btn-secondary btn-sm m-1">argentina</a> 					
-					
-						<a href="#chile" class="btn btn-secondary btn-sm m-1">chile</a> 					
-					
-						<a href="#brasil" class="btn btn-secondary btn-sm m-1">brasil</a> 					
-					
-						<a href="#ecuador" class="btn btn-secondary btn-sm m-1">ecuador</a> 						
-					
-						<a href="#venezuela" class="btn btn-secondary btn-sm m-1">venezuela</a> 
-											
-						<a href="#paraguay" class="btn btn-secondary btn-sm m-1">paraguay</a> 						
-					
-						<a href="#uruguay" class="btn btn-secondary btn-sm m-1">uruguay</a> 						
-					
-						<a href="#bolivia" class="btn btn-secondary btn-sm m-1">bolivia</a> 					
+					 ?>
+
+					 <?php foreach ($tags as $key => $value): ?>
+
+					 	<a href="<?php echo $blog["dominio"].preg_replace('/[0-9ñÑáéíóúÁÉÍÓÚ ]/', "_", $value); ?>" class="btn btn-secondary btn-sm m-1"><?php echo $value; ?></a> 
+					 	
+					 <?php endforeach ?>
 										
 				</div>	
 
@@ -274,7 +165,7 @@ CONTENIDO CATEGORIA
 							
 							<a href="articulos.html">
 
-								<img src="vistas/img/articulo01.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
+								<img src="<?php echo $blog["dominio"]; ?>vistas/img/articulos/articulo-01/articulo01/articulo01.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
 
 							</a>
 
@@ -298,7 +189,7 @@ CONTENIDO CATEGORIA
 							
 							<a href="articulos.html">
 
-								<img src="vistas/img/articulo02.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
+								<img src="<?php echo $blog["dominio"]; ?>vistas/img/articulos/articulo-02/articulo02/articulo02.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
 
 							</a>
 
@@ -322,7 +213,7 @@ CONTENIDO CATEGORIA
 							
 							<a href="articulos.html">
 
-								<img src="vistas/img/articulo03.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
+								<img src="<?php echo $blog["dominio"]; ?>vistas/img/articulos/articulo-03/articulo03/articulo03/articulo03/articulo03.png" alt="Lorem ipsum dolor sit amet" class="img-fluid">
 
 							</a>
 
@@ -347,19 +238,19 @@ CONTENIDO CATEGORIA
 
 				<div class="mb-4">
 					
-					<img src="vistas/img/ad03.png" class="img-fluid">
+					<img src="<?php echo $blog["dominio"]; ?>vistas/img/ad03.png" class="img-fluid">
 
 				</div>
 
 				<div class="my-4">
 					
-					<img src="vistas/img/ad02.jpg" class="img-fluid">
+					<img src="<?php echo $blog["dominio"]; ?>vistas/img/ad02.jpg" class="img-fluid">
 
 				</div>	
 
 				<div class="my-4">
 					
-					<img src="vistas/img/ad05.png" class="img-fluid">
+					<img src="<?php echo $blog["dominio"]; ?>vistas/img/ad05.png" class="img-fluid">
 
 				</div>	
 				

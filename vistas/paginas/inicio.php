@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 include 'modulos/banner.php';

@@ -1,10 +1,10 @@
  <?php 
 
-require_once "conexion.php";
+ require_once "conexion.php";
 
 
-class ModeloBlog{
-    
+ class ModeloBlog{
+
 
     /********************************
      * mostrar contenido tabla blog *
@@ -36,29 +36,55 @@ class ModeloBlog{
     /**************************************************
      ** Mostrar articulos y categorias Con Inner Join**
      **************************************************/
-    static public function mdlMostrarConInnerJoin($tabla1, $tabla2,$desde, $cantidad){
+    static public function mdlMostrarConInnerJoin($tabla1, $tabla2,$desde, $cantidad,$item,$valor){
+       if($item == null && $valor == null){
 
         $stmt = Conexion::conectar()->prepare("SELECT $tabla1.*, $tabla2.*, DATE_FORMAT(fecha_articulo, '%d.%m.%Y') AS fecha_articulo FROM $tabla1 INNER JOIN $tabla2 ON $tabla1.id_categoria = $tabla2.id_cat ORDER BY $tabla2.id_articulo DESC LIMIT $desde, $cantidad");
         
         $stmt -> execute();
         return $stmt -> fetchAll();
-
-        $stmt -> close();
-
+    } else{
+         $stmt = Conexion::conectar()->prepare("SELECT $tabla1.*, $tabla2.*, DATE_FORMAT(fecha_articulo, '%d.%m.%Y') AS fecha_articulo FROM $tabla1 INNER JOIN $tabla2 ON $tabla1.id_categoria = $tabla2.id_cat WHERE $item = :$item ORDER BY $tabla2.id_articulo DESC LIMIT $desde, $cantidad");
+        $stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
+        $stmt -> execute();
+        return $stmt -> fetchAll();
     }
+
+    $stmt -> close();
+
+}
 
     /*=============================================
     =   mostrar cantidad de articulos   =
     =============================================*/
-    static public function mdlMostrarTotalArticulos($tabla){
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-        
-        $stmt -> execute();
-        return $stmt -> fetchAll();
+    static public function mdlMostrarTotalArticulos($tabla, $item, $valor){
+
+        if($item == null && $valor == null){
+
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+
+            $stmt -> execute();
+
+            return $stmt -> fetchAll();
+
+        }else{
+
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item ORDER BY id_articulo DESC");
+
+            $stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
+
+            $stmt -> execute();
+
+            return $stmt -> fetchAll();
+
+        }
 
         $stmt -> close();
 
+        $stmt = null;
+
     }
+
 
     
 }
