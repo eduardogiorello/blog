@@ -17,19 +17,20 @@ $totalPaginas = ceil(count($totalArticulos) / 5);
 	<meta charset="UTF-8">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<?php
 
 	$validarRuta = "";
 
 	if (isset($_GET["pagina"])) {
-$rutas = explode("/", $_GET["pagina"]);
+		$rutas = explode("/", $_GET["pagina"]);
 
-echo '<pre class="bg-white">'; print_r($rutas[0]); echo '</pre>';
 
-			foreach ($categorias as $key => $value) {
-		
-			if(!is_numeric($rutas[0]) && $rutas[0] == $value["ruta_categoria"]){
+
+		foreach ($categorias as $key => $value) {
 			
+			if(!is_numeric($rutas[0]) && $rutas[0] == $value["ruta_categoria"]){
+				
 				$validarRuta = "categorias";
 
 				break;
@@ -173,7 +174,6 @@ echo '<pre class="bg-white">'; print_r($rutas[0]); echo '</pre>';
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 	<!-- Popper JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
@@ -197,10 +197,11 @@ echo '<pre class="bg-white">'; print_r($rutas[0]); echo '</pre>';
 	<!-- Shape Share -->
 	<!-- https://www.jqueryscript.net/social-media/Social-Share-Plugin-jQuery-Open-Graph-Shape-Share.html -->
 	<script src="<?php echo $blog["dominio"]; ?>vistas/js/plugins/shape.share.js"></script>
+	
 
 	<!-- Alertas Notie
-		https://github.com/jaredreich/notie-->
-		<script src="<?php echo $blog["dominio"]; ?>vistas/js/plugins/notie.min.js"></script>
+	https://github.com/jaredreich/notie-->
+	<script src="<?php echo $blog["dominio"]; ?>vistas/js/plugins/notie.min.js"></script>
 
 
 	</head>
@@ -313,6 +314,7 @@ echo '<pre class="bg-white">'; print_r($rutas[0]); echo '</pre>';
 		}else if($validarRuta == "articulos"){
 
 			include "paginas/articulos.php";
+			
 
 		}else if(is_numeric($rutas[0]) && $rutas[0] <= $totalPaginas){
 
@@ -343,6 +345,7 @@ echo '<pre class="bg-white">'; print_r($rutas[0]); echo '</pre>';
 
 
 	?>
+
 
 	<input type="hidden" id="rutaActual" value="<?php echo $blog["dominio"]; ?>">
 	<script src="<?php echo $blog["dominio"]; ?>vistas/js/script.js"></script>

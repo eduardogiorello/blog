@@ -157,5 +157,57 @@ $(".deslizadorArticulos").jdSlider({
 	}]
 
 })
+/*=============================================
+Ver si opiniones esta vacio
+=============================================*/
 
+if (document.querySelector(".opiniones").childNodes.length == 1) {
+	$(".opiniones").html(`
+      <p class="pl-3 text-secondary">¡Este articulo no tiene opiniones!</p>
+		`);
+}
 
+/*=============================================
+SUBIR FOTO TEMPORAL DE OPINIÓN
+=============================================*/
+$("#fotoOpinion").change(function () {
+  $(".alert").remove();
+
+  var imagen = this.files[0];
+
+  /*=============================================
+    VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
+    =============================================*/
+
+  if (imagen["type"] != "image/jpeg" && imagen["type"] != "image/png") {
+    $("#fotoOpinion").val("");
+
+    $("#fotoOpinion").after(`
+
+				<div class="alert alert-danger">¡La imagen debe estar en formato JPG o PNG!</div>
+    		
+    	`);
+
+    return;
+  } else if (imagen["size"] > 2000000) {
+    $("#fotoOpinion").val("");
+
+    $("#fotoOpinion").after(`
+
+				<div class="alert alert-danger">¡La imagen no debe pesar más de 2MB!</div>
+    		
+    	`);
+
+    return;
+  } else {
+    var datosImagen = new FileReader();
+
+    datosImagen.readAsDataURL(imagen);
+
+    $(datosImagen).on("load", function (event) {
+      var rutaImagen = event.target.result;
+
+      $(".prevFotoOpinion").attr("src", rutaImagen);
+    });
+  }
+});

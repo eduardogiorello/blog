@@ -91,6 +91,7 @@ BANNER
 
 .bannerEstatico{
 	background:rgba(0,0,0,0);
+	height: 400px;
 }
 
 .textoBanner{
@@ -164,7 +165,6 @@ GRID CATEGORIAS
 
 .grid .photo1{
 	height:400px;
-	background:url(../img/suramerica.jpg);
 	background-size:cover;
 	background-position:left;
 }
@@ -301,37 +301,38 @@ footer{
 
 .gridFooter .photo1{
 	height:200px;
-	background-size:cover;
+	background-size:contain;
 	background-position:left;
 }
 
 .gridFooter .photo2{
 	height:100px;
-	background-size:cover;
+	background-size:contain;
 	background-position:left;
 }
 
 .gridFooter .photo3{
 	height:100px;
-	background-size:cover;
+	background-size:contain;
 	background-position:left;
 }
 
 .gridFooter .photo4{
 	height:100px;
-	background-size:cover;
+	background-size:contain;
 	background-position:left;
 }
 
 .gridFooter .photo5{
 	height:200px;
-	background-size:cover;
+	background-size:contain;
 	background-position:left;
+	
 }
 
 .gridFooter .photo6{
 	height:200px;
-	background-size:cover;
+	background-size:contain;
 	background-position:left;
 }
 

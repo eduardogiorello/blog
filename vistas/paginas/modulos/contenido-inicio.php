@@ -31,19 +31,19 @@ CONTENIDO INICIO
 					
 					<div class="col-12 col-lg-5">
 
-						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>"><h5 class="d-block d-lg-none py-3"><?= $value['titulo_articulo']; ?></h5></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_categoria'].'/'.$value['ruta_articulo']; ?>"><h5 class="d-block d-lg-none py-3"><?= $value['titulo_articulo']; ?></h5></a>
 			
-						<a href="articulos.html"><img src="<?= $blog['dominio'].$value['portada_articulo']; ?>" alt="<?= $value['titulo_articulo']; ?>" class="img-fluid" width="100%"></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_categoria'].'/'.$value['ruta_articulo']; ?>"><img src="<?= $blog['dominio'].$value['portada_articulo']; ?>" alt="<?= $value['titulo_articulo']; ?>" class="img-fluid" width="100%"></a>
 
 					</div>
 
 					<div class="col-12 col-lg-7 introArticulo">
 						
-						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>"><h4 class="d-none d-lg-block"><?= $value['titulo_articulo']; ?></h4></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_categoria'].'/'.$value['ruta_articulo']; ?>"><h4 class="d-none d-lg-block"><?= $value['titulo_articulo']; ?></h4></a>
 						
 						<p class="my-2 my-lg-5"><?= $value['descripcion_articulo']; ?></p>
 
-						<a href="<?= $blog['dominio']. $value['ruta_articulo']; ?>" class="float-right">Leer Más</a>
+						<a href="<?=  $blog['dominio'].$value['ruta_categoria'].'/'.$value['ruta_articulo']; ?>" class="float-right">Leer Más</a>
 
 						<div class="fecha"><?= $value['fecha_articulo']; ?></div>
 

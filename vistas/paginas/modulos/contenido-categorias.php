@@ -5,7 +5,7 @@
 Seleccionar los artículos de la categoría especifica
 =============================================*/
 
-if(isset($rutas[0]) && ){
+if(isset($rutas[0]) ){
 
 	$articulos = ControladorBlog::ctrMostrarConInnerJoin(0, 5, "ruta_categoria", $rutas[0]);
 
@@ -13,7 +13,7 @@ if(isset($rutas[0]) && ){
 
 	$totalPaginas = ceil(count($totalArticulos)/5);
 
-	$articulosDestacados = ControladorBlog::ctrArticulosDestacados("id_cat", $articulos[0]["id_cat"]);
+    // $articulosDestacados = ControladorBlog::ctrArticulosDestacados("id_cat", $articulos[0]["id_cat"]);
 
 }
 /*=============================================
@@ -28,7 +28,7 @@ if(isset($rutas[1])){
 
 			echo '<script>
 
-				window.location = "'.$blog["dominio"].'error404";
+				window.location.href= "'.$blog["dominio"].'error404";
 
 			</script>';
 
@@ -47,7 +47,7 @@ if(isset($rutas[1])){
 
 		echo '<script>
 
-			window.location = "'.$blog["dominio"].'error404";
+			window.location.href= "'.$blog["dominio"].'error404";
 
 		</script>';
 
@@ -61,7 +61,7 @@ if(isset($rutas[1])){
 
 }
 
-$anuncios = ControladorBlog::ctrTraerAnuncios("categorias");
+// $anuncios = ControladorBlog::ctrTraerAnuncios("categorias");
 
 
  ?>
@@ -97,19 +97,19 @@ $anuncios = ControladorBlog::ctrTraerAnuncios("categorias");
 					
 					<div class="col-12 col-lg-5">
 
-						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>"><h5 class="d-block d-lg-none py-3"><?= $value['titulo_articulo']; ?></h5></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_categoria'].'/'.$value['ruta_articulo']; ?>"><h5 class="d-block d-lg-none py-3"><?= $value['titulo_articulo']; ?></h5></a>
 			
-						<a href="articulos.html"><img src="<?= $blog['dominio'].$value['portada_articulo']; ?>" alt="<?= $value['titulo_articulo']; ?>" class="img-fluid" width="100%"></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_categoria'].'/'.$value['ruta_articulo']; ?>"><img src="<?= $blog['dominio'].$value['portada_articulo']; ?>" alt="<?= $value['titulo_articulo']; ?>" class="img-fluid" width="100%"></a>
 
 					</div>
 
 					<div class="col-12 col-lg-7 introArticulo">
 						
-						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>"><h4 class="d-none d-lg-block"><?= $value['titulo_articulo']; ?></h4></a>
+						<a href="<?=  $blog['dominio'].$value['ruta_categoria'].'/'.$value['ruta_articulo']; ?>"><h4 class="d-none d-lg-block"><?= $value['titulo_articulo']; ?></h4></a>
 						
 						<p class="my-2 my-lg-5"><?= $value['descripcion_articulo']; ?></p>
 
-						<a href="<?=  $blog['dominio'].$value['ruta_articulo']; ?>" class="float-right">Leer Más</a>
+						<a href="<?=  $blog['dominio'].$value['ruta_categoria'].'/'.$value['ruta_articulo']; ?>" class="float-right">Leer Más</a>
 
 						<div class="fecha"><?= $value['fecha_articulo']; ?></div>
 
