@@ -338,7 +338,68 @@ foreach ($totalArticulos as $key => $value) {
 			<?php 
 
 				$enviarOpinion = ControladorBlog::ctrEnviarOpinion();
-				echo '<pre>'; print_r($enviarOpinion); echo '</pre>';
+				if($enviarOpinion != ""){
+
+					echo '<script>
+
+						if ( window.history.replaceState ) {
+
+							window.history.replaceState( null, null, window.location.href );
+
+						}
+
+					</script>';
+
+					if($enviarOpinion == "ok"){
+
+						echo '<script>
+
+
+							notie.alert({
+								type: 1,
+								text: "La opinión ha sido enviada correctamente",
+								time: 10
+
+							})
+
+						</script>';
+
+					}
+
+					if($enviarOpinion == "error"){
+
+						echo '<script>
+
+
+							notie.alert({
+								type: 3,
+								text: "No se permiten caracteres especiales en el formulario",
+								time: 10
+
+							})
+
+						</script>';
+
+					}
+
+					if($enviarOpinion == "error-formato"){
+
+						echo '<script>
+
+
+							notie.alert({
+								type: 3,
+								text: "Error en el formato de la imagen, debe ser JPG o PNG",
+								time: 10
+
+							})
+
+						</script>';
+
+					}
+
+				}
+
 
 			 ?>
 	</form>
